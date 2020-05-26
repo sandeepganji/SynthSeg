@@ -19,7 +19,12 @@ def metrics_model(input_shape,
                   name=None,
                   prefix=None,
                   validation_on_real_images=False):
-
+	
+	# changed to make it work on TensorFlow 2.0 (Windows 10 with GTX1080)
+	config = tf.compat.v1.ConfigProto()
+	config.gpu_options.allow_growth = True
+	config.gpu_options.per_process_gpu_memory_fraction = 0.8
+	tf.compat.v1.Session(config=config)
     # naming the model
     model_name = name
     if prefix is None:
